@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="cartstyle.css" />
+  </head>
+  <body>
+    <header>
+      <div id="heading"><h1>Your Shopping Cart</h1></div>
+      <div id="homebtn"
+        ><a href="./home.html"><button id="hbtn">HOME</button></a></div
+      >
+    </header>
+
+    <div id="product-list"></div>
+
+    <section id="total">
+      <div id="total-price"></div>
+      <button id="checkout-btn">Checkout</button>
+    </section>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const productListContainer = document.getElementById('product-list');
+
+        // Function to display products in the frontend
+        const displayProducts = (products) => {
+          // Clear existing content
+          productListContainer.innerHTML = '';
+
+          // Create a table element
+          const table = document.createElement('table');
+          table.setAttribute('border', '2');
+          table.setAttribute('color', 'black');
+          table.classList.add('product-table');
+
+          // Create table header
+          const headerRow = document.createElement('tr');
+          headerRow.innerHTML = `
+    <th class="theading">ID</th>
+    <th class="theading">Name</th>
+    <th class="theading">Description</th>
+    <th class="theading">Price</th>
+  `;
+          table.appendChild(headerRow);
+
+          // Loop through the products and create table rows
+          products.forEach((product) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+      <td>${product.productid}</td>
+      <td>${product.name}</td>
+      <td>${product.description}</td>
+      <td>&#8377;${product.price}</td>
+    `;
+            table.appendChild(row);
+          });
+
+          // Append the table to the container
+          productListContainer.appendChild(table);
+        };
+
+        // Fetch products from the server
+        const fetchProducts = async () => {
+          try {
+            const response = await fetch(
+              'http://localhost:5500/productsInCart'
+            );
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const jsonResponse = await response.json();
+            displayProducts(jsonResponse);
+          } catch (error) {
+            console.error('Error fetching products:', error);
+            // Handle errors, e.g., display an error message to the user
+          }
+        };
+
+        // Call the fetchProducts function to display products on page load
+        fetchProducts();
+
+        const totalPriceContainer = document.getElementById('total-price');
+
+        // Function to display total price in the frontend
+        const displayTotalPrice = (totalPrice) => {
+          // Check if the total price is available
+          if (totalPrice !== null && totalPrice !== undefined) {
+            totalPriceContainer.innerHTML = `<p><strong>Total Price:</strong> &#8377;${totalPrice}</p>`;
+          } else {
+            // Display a message if the total price is not available
+            totalPriceContainer.innerHTML =
+              '<p>Total price is not available.</p>';
+          }
+        };
+
+        // Fetch total price from the server
+        const fetchTotalPrice = async () => {
+          try {
+            const response = await fetch(
+              'http://localhost:5500/totalPriceInCart'
+            );
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const { success, total_price: totalPrice } = await response.json();
+
+            if (success) {
+              displayTotalPrice(totalPrice);
+            } else {
+              // Handle the case where the server response indicates an error
+              console.error('Error fetching total price:', totalPrice);
+              // Display an error message to the user
+              totalPriceContainer.innerHTML =
+                '<p>Error fetching total price.</p>';
+            }
+          } catch (error) {
+            console.error('Error fetching total price:', error);
+            // Handle errors, e.g., display an error message to the user
+          }
+        };
+
+        // Call the fetchTotalPrice function to display total price on page load
+        fetchTotalPrice();
+        //if number of products is >0 then only checkout button will be visible
+        const checkoutBtn = document.getElementById('checkout-btn');
+        //if the number of products is 0 then checkout button will be hidden and total price will be 0
+        if (totalPriceContainer.innerHTML === '<p>Total price is not available.</p>') {
+          checkoutBtn.style.display = 'none';
+          totalPriceContainer.innerHTML = '';
+          totalPriceContainer.innerHTML = `<p><strong>Total Price:</strong> &#8377;0</p>`;
+        }
+
+        // Function to handle checkout button click it should redirect to checkout page
+        checkoutBtn.addEventListener('click', () => {
+          window.location.href = './checkout.html';
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INVENTORY MANAGEMENT SYSTEM</title>
+    <link rel="stylesheet" href="homestyle.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Salsa&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div id="header">
+      <div id="title">
+        <h1>INVENTORY MANAGEMENT SYSTEM</h1>
+      </div>
+      <div>
+        <a href="./cart.html"><button id="cart" class="hbtn">Cart</button></a>
+        <a href="./login.html"
+          ><button id="logout" class="hbtn">Logout</button></a
+        >
+      </div>
+    </div>
+    <div id="searchbox">
+      <div>
+        <input type="text" id="search" placeholder="Search" />
+        <button id="searchbtn" type="button">Search</button>
+      </div>
+      <div class="dropdown">
+        <!-- dropdown menu having categories retrieved from database -->
+        <select name="category" id="category">
+          <option value="all">All</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Home and Garden">Home and Garden</option>
+          <option value="Books">Books</option>
+          <option value="Toys and Games">Toys and Games</option>
+          <option value="Sports and Outdoors">Sports and Outdoors</option>
+          <option value="Beauty and Personal Care"
+            >Beauty and Personal Care</option
+          >
+          <option value="Furniture">Furniture</option>
+          <option value="Food and Beverages">Food and Beverages</option>
+          <option value="Health and Wellness">Health and Wellness</option>
+        </select>
+      </div>
+    </div>
+    <div id="table-container"></div>
+    <!-- Table will be displayed here -->
+    <div id="addtocartdiv">
+      <button id="addtocartbtn1" type="button">Add to Cart</button>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const searchBtn = document.getElementById('searchbtn');
+        const categoryDropdown = document.getElementById('category');
+        const searchInput = document.getElementById('search');
+        const tableContainer = document.getElementById('table-container');
+
+        let checkboxCounter = 1;
+
+        // Function to generate a unique ID for each checkbox
+        const generateCheckboxId = () => {
+          return `terms-checkbox-${checkboxCounter++}`;
+        };
+        // Function to generate and display a table with the given data
+        const displayTable = (data) => {
+          // Find the table container
+          const tableContainer = document.getElementById('table-container');
+
+          // Check if the table container exists
+          if (!tableContainer) {
+            console.error('Table container not found.');
+            return;
+          }
+          alert(data);
+          // Clear existing table
+          tableContainer.innerHTML = '';
+
+          // Create table element
+          const table = document.createElement('table');
+          table.setAttribute('border', '2');
+          table.setAttribute('color', 'black');
+          // Create table header
+          const headerRow = document.createElement('tr');
+          for (const key in data[0]) {
+            const th = document.createElement('th');
+            th.textContent = key.toUpperCase();
+            headerRow.appendChild(th);
+          }
+
+          // Add heading for the "Add to Cart" column
+          const addToCartHeader = document.createElement('th');
+          addToCartHeader.textContent = 'Add to Cart';
+          headerRow.appendChild(addToCartHeader);
+          table.appendChild(headerRow);
+
+          // Create table rows
+          data.forEach((item) => {
+            const row = document.createElement('tr');
+            for (const key in item) {
+              const td = document.createElement('td');
+              td.textContent = item[key];
+              row.appendChild(td);
+            }
+
+            // Add checkbox to each row
+            const checkboxWrapper = document.createElement('div');
+            checkboxWrapper.classList.add('checkbox-wrapper');
+
+            const checkid = generateCheckboxId();
+            const checkboxInput = document.createElement('input');
+            checkboxInput.setAttribute('id', checkid); // Assuming 'id' is a property in your data
+            checkboxInput.setAttribute('name', 'checkbox');
+            checkboxInput.setAttribute('type', 'checkbox');
+            checkboxInput.classList.add('terms-checkbox');
+            const firstKey = Object.keys(item)[0];
+            checkboxInput.value = item[firstKey];
+            console.log(checkboxInput.value);
+            // Add this line inside the loop where checkboxes are created
+            checkboxInput.style.transform = 'scale(2.5)';
+
+            const checkboxLabel = document.createElement('label');
+            checkboxLabel.classList.add('terms-label');
+            checkboxLabel.setAttribute('for', checkid);
+
+            // ... (SVG and label content)
+
+            checkboxWrapper.appendChild(checkboxInput);
+            checkboxWrapper.appendChild(checkboxLabel);
+
+            const tdCheckbox = document.createElement('td');
+            tdCheckbox.appendChild(checkboxWrapper);
+            row.appendChild(tdCheckbox);
+            table.appendChild(row);
+          });
+
+          // Append table to the container
+          tableContainer.appendChild(table);
+        };
+
+        // Event listener for the search button
+        searchBtn.addEventListener('click', async () => {
+          const searchValue = searchInput.value;
+          // const selectedCategory = categoryDropdown.value;
+
+          try {
+            const response = await fetch('http://localhost:5500/search', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ searchValue }),
+            });
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('data');
+            displayTable(data);
+
+            // Process and display the search result as needed
+          } catch (error) {
+            console.error('Error:', error);
+            // Handle errors, e.g., display an error message to the user
+          }
+        });
+
+        // Event listener for the category dropdown
+        categoryDropdown.addEventListener('change', async () => {
+          const selectedCategory = categoryDropdown.value;
+          const searchValue = searchInput.value;
+
+          try {
+            alert(selectedCategory);
+            const response = await fetch(
+              'http://localhost:5500/filterByCategory',
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ selectedCategory, searchValue }),
+              }
+            );
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log('data from server:', data);
+            displayTable(data);
+            // Process and display the filtered result as needed
+          } catch (error) {
+            console.error('Error:', error);
+            // Handle errors, e.g., display an error message to the user
+          }
+        });
+
+        //event listener for the add to cart button
+
+        // Event listener for the add to cart button
+        const addtocartbtn1 = document.getElementById('addtocartbtn1');
+        addtocartbtn1.addEventListener('click', async () => {
+          const addToCartCheckboxes = document.querySelectorAll(
+            '.terms-checkbox:checked'
+          );
+
+          if (addToCartCheckboxes.length > 0) {
+            // Extract the product IDs of the checked items
+            const productIds = Array.from(addToCartCheckboxes).map(
+              (checkbox) => checkbox.value
+            );
+
+            try {
+              // Send a request to the server to add product IDs to the cart
+              const response = await fetch('http://localhost:5500/addToCart', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ productIds }),
+              });
+
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+
+              const result = await response.json();
+              alert(result.message);
+            } catch (error) {
+              console.error('Error:', error);
+              // Handle errors, e.g., display an error message to the user
+            }
+          } else {
+            alert('Please select at least one item to add to the cart.');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

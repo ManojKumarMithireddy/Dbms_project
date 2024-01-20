@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  font-size: 50px;
+  background-image: url('images/login.jpg');
+  background-size: cover; /* Adjust as needed */
+  background-position: center; /* Adjust as needed */
+  height: 100vh; /* Adjust as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#leftbox {
+  width: 50%;
+  border-radius: 10px;
+  margin-top: 0px;
+  padding-top: 40px;
+}
+
+#leftbox p {
+  font-size: 35px;
+  margin-top: 5px;
+  margin-left: 15px;
+}
+
+#leftbox h3 {
+  margin: 0%;
+  font-size: 200%;
+}
+
+.sharebtn {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+#imgdev {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 28px;
+}
+
+p {
+  font-size: 15px;
+  margin-top: 15px;
+}
+.login-card {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card-header .log {
+  margin: 0;
+  font-size: 44px;
+  color: black;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: 0.5s;
+}
+
+input[type='submit'] {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type='submit']:hover {
+  background-color: #ccc;
+  color: #0000;
+}
