@@ -31,7 +31,8 @@ const getUserID = () => {
 app.get('/totalPriceInCart', async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT SUM(price) as total_price FROM product WHERE productid IN (SELECT product_id FROM cart where user_id=$1)',[getUserID()]
+      'SELECT SUM(price) as total_price FROM product WHERE productid IN (SELECT product_id FROM cart where user_id=$1)',
+      [getUserID()]
     );
 
     // Extract the total price from the result
@@ -222,9 +223,9 @@ app.post('/checkout', async (req, res) => {
       'INSERT INTO customer(cname, email, address, city, state, zip, tid) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
       [cname, email, address, city, state, zip, tid]
     );
-    const result2 = await pool.query(
-      'delete from cart where user_id=$1',[userid1]
-    );
+    const result2 = await pool.query('delete from cart where user_id=$1', [
+      userid1,
+    ]);
     res.json({
       success: true,
       message: 'Transaction successful',
@@ -238,6 +239,25 @@ app.post('/checkout', async (req, res) => {
     });
   }
 });
+
+app.get('/transactHistory', async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT t.cname1, t.date, t.amount, c.address, c.city, c.state, c.zip FROM customer c JOIN transaction t ON c.tid = t.transactionid WHERE t.userid=$1',
+      [getUserID()]
+    );
+    
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing database query:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message,
+    });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

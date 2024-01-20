@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INVENTORY MANAGEMENT SYSTEM</title>
+    <link rel="stylesheet" href="homestyle.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Salsa&display=swap"
+      rel="stylesheet" />
+  </head>
+  <body>
+    <div id="header">
+      <div id="title">
+        <a href="./home.html" style="text-decoration: none"
+          ><h1>INVENTORY MANAGEMENT SYSTEM</h1></a
+        >
+      </div>
+    </div>
+    <div id="sheading">
+      <h1>TRANSACTION HISTORY</h1>
+    </div>
+    <div id="table-container"></div>
+  </body>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const transactionsContainer = document.getElementById('table-container');
+
+      const displayTransactions = (transactions) => {
+        // Clear existing content
+        transactionsContainer.innerHTML = '';
+
+        // Check if there are transactions to display
+        if (transactions.length === 0) {
+          transactionsContainer.innerHTML = '<p>No transactions available.</p>';
+          return;
+        }
+
+        // Create a table element
+        const table = document.createElement('table');
+        table.setAttribute('border', '1');
+        table.classList.add('transaction-table');
+
+        // Create table header
+        const headerRow = document.createElement('tr');
+        headerRow.innerHTML = `
+            <th class="theading">Customer Name</th>
+            <th class="theading">Date</th>
+            <th class="theading">Amount</th>
+            <th class="theading">Address</th>
+          `;
+        table.appendChild(headerRow);
+
+        // Loop through the transactions and create table rows
+        transactions.forEach((transaction) => {
+          const row = document.createElement('tr');
+          // Format the date and time neatly
+          const formattedDate = new Date(transaction.date).toLocaleDateString();
+          const formattedTime = new Date(transaction.date).toLocaleTimeString();
+          
+          row.innerHTML = `
+              <td>${transaction.cname1}</td>
+              <td>${formattedDate} ${formattedTime}</td>
+              <td>${transaction.amount}</td>
+              <td>${transaction.state},${transaction.city},${transaction.address},${transaction.zip}</td>
+            `;
+          table.appendChild(row);
+        });
+
+        // Append the table to the container
+        transactionsContainer.appendChild(table);
+      };
+
+      const fetchTransactions = async () => {
+        try {
+          const response = await fetch('http://localhost:5500/transactHistory');
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const jsonResponse = await response.json();
+          displayTransactions(jsonResponse);
+        } catch (error) {
+          console.error('Error fetching transactions:', error);
+          // Handle errors, e.g., display an error message to the user
+        }
+      };
+
+      fetchTransactions();
+    });
+  </script>
+</html>
