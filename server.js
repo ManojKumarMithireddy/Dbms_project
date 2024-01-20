@@ -243,10 +243,10 @@ app.post('/checkout', async (req, res) => {
 app.get('/transactHistory', async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT t.cname1, t.date, t.amount, c.address, c.city, c.state, c.zip FROM customer c JOIN transaction t ON c.tid = t.transactionid WHERE t.userid=$1',
+      'SELECT t.cname1,t.date,t.amount,c.address, c.city, c.state, c.zip FROM customer c,transaction t WHERE t.userid=$1',
       [getUserID()]
     );
-    
+
     res.json(result.rows);
   } catch (error) {
     console.error('Error executing database query:', error);
@@ -257,7 +257,6 @@ app.get('/transactHistory', async (req, res) => {
     });
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

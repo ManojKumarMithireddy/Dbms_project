@@ -60,7 +60,7 @@
           // Format the date and time neatly
           const formattedDate = new Date(transaction.date).toLocaleDateString();
           const formattedTime = new Date(transaction.date).toLocaleTimeString();
-          
+
           row.innerHTML = `
               <td>${transaction.cname1}</td>
               <td>${formattedDate} ${formattedTime}</td>
