@@ -18,6 +18,7 @@
       </div>
       <div>
         <a href="./cart.html"><button id="cart" class="hbtn">Cart</button></a>
+        <a href="./transaction_history.html"><button id="cart" class="hbtn">Transaction History</button></a>
         <a href="./login.html"
           ><button id="logout" class="hbtn">Logout</button></a
         >
@@ -83,6 +84,7 @@
           const table = document.createElement('table');
           table.setAttribute('border', '2');
           table.setAttribute('color', 'black');
+          table.classList.add('table');
           // Create table header
           const headerRow = document.createElement('tr');
           for (const key in data[0]) {

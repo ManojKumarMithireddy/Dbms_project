@@ -243,7 +243,7 @@ app.post('/checkout', async (req, res) => {
 app.get('/transactHistory', async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT t.cname1,t.date,t.amount,c.address, c.city, c.state, c.zip FROM customer c,transaction t WHERE t.userid=$1',
+      'SELECT t.cname1,t.date,t.amount,c.address, c.city, c.state, c.zip FROM customer c,transaction t WHERE t.userid=$1 AND t.transactionid=c.tid',
       [getUserID()]
     );
 
