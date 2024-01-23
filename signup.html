@@ -1,198 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>INVENTORY MANAGEMENT SYSTEM</title>
-  <style>
-    body{
-      margin: 0;
-    font-size: 50px;
-    background-image: url('images/login.jpg');
-    background-size: cover; /* Adjust as needed */
-    background-position: center; /* Adjust as needed */
-    height: 100vh; /* Adjust as needed */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    }
-    #box{
-      display: flex;
-      justify-content: space-between;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INVENTORY MANAGEMENT SYSTEM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <style>
+      body {
+        font-family: 'Salsa', sans-serif;
+        margin: 0;
+        font-size: 50px;
+        background-image: url('images/login.jpg');
+        background-size: cover; /* Adjust as needed */
+        background-position: center; /* Adjust as needed */
+        height: 100vh; /* Adjust as needed */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      #box {
+        display: flex;
+        justify-content: space-between;
+      }
 
-    #leftbox{
-      width: 50%;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 50px;
-      margin-right: 100px;
-      padding-top: 180px;
-    }
+      #leftbox {
+        width: 50%;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 50px;
+        margin-right: 100px;
+        padding-top: 180px;
+      }
 
-    #leftbox p{
-      font-size: 35px;
-      margin-top: 5px;
-      margin-left: 15px;
-    }
+      #leftbox p {
+        font-size: 35px;
+        margin-top: 5px;
+        margin-left: 15px;
+      }
 
-    #leftbox h3{
-      margin: 0%;
-      font-size: 200%;
-    }
-    
-    .sharebtn{
-      width: 30px;
-      height: 30px;
-      margin-right: 10px;
-    }
+      #leftbox h3 {
+        margin: 0%;
+        font-size: 200%;
+      }
 
-    #imgdev{
-      display: flex;
-      margin-top: 20px;
-      margin-left: 28px;
-    }
+      .sharebtn {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
 
-    input[type="text"], input[type="password"] {
-  width: 100%;
-  padding: 12px 20px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: 0.5s;
-}
+      #imgdev {
+        display: flex;
+        margin-top: 20px;
+        margin-left: 28px;
+      }
 
-input[type="submit"] {
-  width: 100%;
-  background-color: white;
-  color: black;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+      input[type='text'],
+      input[type='password'] {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        transition: 0.5s;
+      }
 
-input[type="submit"]:hover {
-  background-color: black;
-  color: #ccc;
-}
+      input[type='submit'] {
+        width: 100%;
+        background-color: white;
+        color: black;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-label {
-  font-size: 28px;
-  margin-bottom: 5px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+      input[type='submit']:hover {
+        background-color: black;
+        color: #ccc;
+      }
 
-select{
-  width: 80%;
-  padding: 12px 20px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  transition: 0.5s;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+      label {
+        font-size: 28px;
+        margin-bottom: 5px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
 
+      select {
+        width: 80%;
+        padding: 12px 20px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        transition: 0.5s;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
 
+      #rightbox {
+        width: 50%;
+        padding: 20px;
+        border-radius: 10px;
 
-    #rightbox{
-      width: 50%;
-      padding: 20px;
-      border-radius: 10px;
-      
-      margin-left: 300px;
-      padding-top: 100px;
-}
+        margin-left: 300px;
+        padding-top: 100px;
+      }
 
-    #signup-header{
-      text-align: center;
-      font-size: 35px;
-      margin-bottom: 20px
-    }
-  </style>
-</head>
-<body>
+      #signup-header {
+        text-align: center;
+        font-size: 35px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
     <div id="box">
       <div id="leftbox">
-          <h3>WELCOME</h3>
-          <p>Sign up to get started!</p>
-          <div id="imgdev">
-            <img src="./images/instagram.png" alt="instalogo" class="sharebtn">
-            <img src="./images/facebook.png" alt="facebooklogo" class="sharebtn">
-            <img src="./images/twitter.png" alt="twitterlogo" class="sharebtn">
-            <img src="./images/youtube.png" alt="youtubelogo" class="sharebtn">
-          </div>
+        <h3>WELCOME</h3>
+        <p>Sign up to get started!</p>
+        <div id="imgdev">
+          <img src="./images/instagram.png" alt="instalogo" class="sharebtn" />
+          <img
+            src="./images/facebook.png"
+            alt="facebooklogo"
+            class="sharebtn" />
+          <img src="./images/twitter.png" alt="twitterlogo" class="sharebtn" />
+          <img src="./images/youtube.png" alt="youtubelogo" class="sharebtn" />
+        </div>
       </div>
       <div id="rightbox">
         <div id="signup-header">
           <h3>Sign Up</h3>
         </div>
         <form id="signup-form">
-              <div class="signupdiv">
-                <label for="username">Username:</label>
-                <input required="" name="username" id="username" type="text">
-              </div>
-              <div class="signupdiv">
-                <label for="password">Password:</label>
-                <input required="" name="password" id="password" type="password">
-              </div>
-              <div class="signupdiv">
-                <label for="password1">Confirm Password:</label>
-                <input required="" name="password" id="password1" type="password">
-              </div>
-              <div class="signupdiv">
-                <label for="role">Role:</label>
-                <select name="role" id="role">
-                  <option value="Customer">Customer</option>
-                  <option value="Admin">Admin</option>
-                </select>
-              </div>
-              <div class="signupdiv">
-                <input value="Sign Up" type="submit">
-              </div>
+          <div class="signupdiv">
+            <label for="username">Username:</label>
+            <input required="" name="username" id="username" type="text" />
+          </div>
+          <div class="signupdiv">
+            <label for="password">Password:</label>
+            <input required="" name="password" id="password" type="password" />
+          </div>
+          <div class="signupdiv">
+            <label for="password1">Confirm Password:</label>
+            <input required="" name="password" id="password1" type="password" />
+          </div>
+          <div class="signupdiv">
+            <label for="role">Role:</label>
+            <select name="role" id="role">
+              <option value="Customer">Customer</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+          <div class="signupdiv">
+            <input value="Sign Up" type="submit" />
+          </div>
         </form>
-    </div>
+      </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('signup-form');
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('signup-form');
 
-    form.addEventListener('submit', async function (event) {
-        event.preventDefault();
+          form.addEventListener('submit', async function (event) {
+            event.preventDefault();
 
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        const password1 = document.getElementById('password1').value;
-        const role = document.getElementById('role').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const password1 = document.getElementById('password1').value;
+            const role = document.getElementById('role').value;
 
-        try {
-            const response = await fetch('http://localhost:5500/signup', {
+            try {
+              const response = await fetch('http://localhost:5500/signup', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                  'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password , password1, role }),
-            });
-            const data = await response.json();
-            alert("signup successful");
-            window.location.href = './login.html';
-            
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again later.');
-        }
-    });
-
-
-});
-
-
-    </script>
-</body>
-</html>
+                body: JSON.stringify({ username, password, password1, role }),
+              });
+              const data = await response.json();
+              alert('signup successful');
+              window.location.href = './login.html';
+            } catch (error) {
+              console.error('Error:', error);
+              alert('An error occurred. Please try again later.');
+            }
+          });
+        });
+      </script>
+    </div>
+    </body>
+    </html>
