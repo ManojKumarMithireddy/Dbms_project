@@ -46,11 +46,11 @@ app.get('/totalPriceInCart', async (req, res) => {
 });
 
 app.post('/setUserID', async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
     const result = await pool.query(
-      'SELECT distinct userid FROM user1 WHERE username = $1 AND password = $2',
-      [username, password]
+      'SELECT distinct userid FROM user1 WHERE email = $1 AND password = $2',
+      [email, password]
     );
     setUserID(result.rows[0].userid);
     res.json(result.rows);
@@ -61,13 +61,13 @@ app.post('/setUserID', async (req, res) => {
 });
 
 app.post('/users', async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     const client = await pool.connect();
     const result = await client.query(
-      'SELECT * FROM user1 WHERE username = $1 AND password = $2',
-      [username, password]
+      'SELECT * FROM user1 WHERE email = $1 AND password = $2',
+      [email, password]
     );
 
     client.release();
@@ -116,6 +116,23 @@ app.get('/allProducts', async (req, res) => {
   }
 });
 
+app.get('/userDetails', async (req, res) => {
+  try{
+    const result = await pool.query(
+      'SELECT username,email FROM user1 WHERE userid=$1',
+      [getUserID()]
+    );
+    res.json(result.rows);
+  }catch (error) {
+    console.error('Error executing database query:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message,
+    });
+  }
+});
+
 app.post('/filterByCategory', async (req, res) => {
   const { selectedCategory } = req.body;
   const { searchValue } = req.body;
@@ -136,14 +153,14 @@ app.post('/filterByCategory', async (req, res) => {
 });
 
 app.post('/signup', async (req, res) => {
-  const { username, password, password1, role } = req.body;
+  const { username, password, password1, email, role } = req.body;
   if (password != password1) {
     res.json({ success: false, message: 'Passwords do not match' });
   }
   try {
     const result = await pool.query(
-      'INSERT INTO user1 (username, password, role) VALUES ($1, $2, $3) returning *',
-      [username, password, role]
+      'INSERT INTO user1 (username, password, role, email) VALUES ($1, $2, $3) returning *',
+      [username, password, role, email]
     );
     res.json({ success: true, message: 'Signup successful' });
   } catch (error) {

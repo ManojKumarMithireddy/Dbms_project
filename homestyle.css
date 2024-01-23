@@ -117,6 +117,9 @@ body {
   font-size: 20px;
 }
 
+#usernamecontainer, #emailcontainer {
+  font-size: 20px;
+}
 #addtocartbtn1 {
   background-color: #28a745;
   color: #fff;
@@ -259,3 +262,9 @@ input:checked ~ .slide {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+.uname, .mail{
+  display: flex;
+  justify-content: center;
+  margin-top: 8%;
+  margin-bottom: 8%;
+}

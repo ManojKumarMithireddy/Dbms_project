@@ -4,9 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="cartstyle.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="cartstyle.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Salsa&display=swap"
+      rel="stylesheet" />
   </head>
   <body>
     <header>
@@ -130,7 +133,10 @@
         //if number of products is >0 then only checkout button will be visible
         const checkoutBtn = document.getElementById('checkout-btn');
         //if the number of products is 0 then checkout button will be hidden and total price will be 0
-        if (totalPriceContainer.innerHTML === '<p>Total price is not available.</p>') {
+        if (
+          totalPriceContainer.innerHTML ===
+          '<p>Total price is not available.</p>'
+        ) {
           checkoutBtn.style.display = 'none';
           totalPriceContainer.innerHTML = '';
           totalPriceContainer.innerHTML = `<p><strong>Total Price:</strong> &#8377;0</p>`;

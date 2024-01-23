@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="./loginstyle.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Salsa&display=swap"
+      rel="stylesheet" />
   </head>
   <body>
     <div class="login-card">
@@ -30,11 +33,23 @@
 
         <form id="loginbox">
           <div class="form-group">
-            <label for="username">Username:</label>
-            <input required="" name="username" id="username" type="text" />
+            <label for="username"><img
+              src="/vectoricons/envelope.png"
+              id="mail"
+              alt="mail"
+              height="20px"
+              width="20px"/>
+              <span>Email:</span></label>
+            <input required="" name="email" id="email" type="email" />
           </div>
           <div class="form-group">
-            <label for="password">Password:</label>
+            <label for="password"><img
+              src="/vectoricons/padlock.png"
+              id="password"
+              alt="padlock"
+              height="20px"
+              width="20px" />
+              <span>Password:</span></label>
             <input required="" name="password" id="password" type="password" />
           </div>
           <p>Don't have an account?<a href="./signup.html">Sign up</a></p>

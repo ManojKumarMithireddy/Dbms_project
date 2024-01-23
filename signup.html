@@ -6,6 +6,9 @@
     <title>INVENTORY MANAGEMENT SYSTEM</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Salsa&display=swap"
+      rel="stylesheet" />
     <style>
       body {
         font-family: 'Salsa', sans-serif;
@@ -58,7 +61,8 @@
       }
 
       input[type='text'],
-      input[type='password'] {
+      input[type='password'],
+      input[type='email'] {
         width: 100%;
         padding: 12px 20px;
         font-size: 16px;
@@ -109,7 +113,7 @@
         border-radius: 10px;
 
         margin-left: 300px;
-        padding-top: 100px;
+        padding-top: 20px;
       }
 
       #signup-header {
@@ -140,19 +144,53 @@
         </div>
         <form id="signup-form">
           <div class="signupdiv">
-            <label for="username">Username:</label>
+            <label for="username"><img
+              src="/vectoricons/user.png"
+              id="uname"
+              alt="uname"
+              height="20px"
+              width="20px" />
+              Username:</label>
             <input required="" name="username" id="username" type="text" />
           </div>
           <div class="signupdiv">
-            <label for="password">Password:</label>
+            <label for="password"><img
+              src="/vectoricons/padlock.png"
+              id="uname"
+              alt="padlock"
+              height="20px"
+              width="20px" />
+              Password:</label>
             <input required="" name="password" id="password" type="password" />
           </div>
           <div class="signupdiv">
-            <label for="password1">Confirm Password:</label>
+            <label for="password1"><img
+              src="/vectoricons/padlock.png"
+              id="uname"
+              alt="padlock"
+              height="20px"
+              width="20px" />
+              Confirm Password:</label>
             <input required="" name="password" id="password1" type="password" />
           </div>
           <div class="signupdiv">
-            <label for="role">Role:</label>
+            <label for="email"><img
+              src="/vectoricons/envelope.png"
+              id="mail"
+              alt="mail"
+              height="20px"
+              width="20px" />
+              enter email:</label>
+            <input required="" name="eamil" id="email" type="email" />
+          </div>
+          <div class="signupdiv">
+            <label for="role"><img
+              src="/vectoricons/settings.png"
+              id="mail"
+              alt="role"
+              height="20px"
+              width="20px" />
+              Role:</label>
             <select name="role" id="role">
               <option value="Customer">Customer</option>
               <option value="Admin">Admin</option>
@@ -174,6 +212,7 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const password1 = document.getElementById('password1').value;
+            const email = document.getElementById('email').value;
             const role = document.getElementById('role').value;
 
             try {
@@ -182,7 +221,7 @@
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password, password1, role }),
+                body: JSON.stringify({ username, password, password1, eamil, role }),
               });
               const data = await response.json();
               alert('signup successful');

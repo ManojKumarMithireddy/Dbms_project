@@ -42,6 +42,13 @@ body {
   margin-left: 28px;
 }
 
+span{
+  font-size: 20px;
+}
+
+#mail, #password{
+  align-self: center;
+}
 p {
   font-size: 15px;
   margin-top: 15px;
@@ -74,12 +81,14 @@ label {
   margin-bottom: 5px;
 }
 
-input[type='text'],
+input[type='email'],
 input[type='password'] {
   width: 100%;
   padding: 12px 20px;
   font-size: 16px;
   border: 1px solid #ccc;
+  background-color: #53b07d80;
+  color: rgb(7, 7, 7);
   border-radius: 4px;
   box-sizing: border-box;
   transition: 0.5s;
@@ -87,8 +96,8 @@ input[type='password'] {
 
 input[type='submit'] {
   width: 100%;
-  background-color: #333;
-  color: white;
+  background-color: #4f9f73b7;
+  color: rgb(201, 177, 177);
   padding: 14px 20px;
   margin-top: 5px;
   border: none;
@@ -97,6 +106,14 @@ input[type='submit'] {
 }
 
 input[type='submit']:hover {
-  background-color: #ccc;
-  color: #0000;
+  background-color: #ffffff;
+  color: #000000b7;
+  border: 1px solid #000;
+}
+
+
+
+input[type='submit']:focus {
+  outline: none;
+  box-shadow: 0 0 10px #007bff;
 }
