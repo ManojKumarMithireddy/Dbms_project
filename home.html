@@ -13,19 +13,81 @@
   </head>
   <body>
     <div id="header">
-      <div id="title">
-        <h1>INVENTORY MANAGEMENT SYSTEM</h1>
+      <div>
+        <div id="mbox">
+          <label id="scrollLabel">
+            <input id="scrollinput" type="checkbox" />
+            <div class="toggle">
+              <span class="top_line common"></span>
+              <span class="middle_line common"></span>
+              <span class="bottom_line common"></span>
+            </div>
+            <div class="slide">
+              <h1> User details </h1>
+              <div class="container">
+                <div class="profile">
+                  <img
+                    src="/vectoricons/profile-user.png"
+                    id="profile-image"
+                    alt="profile-picture"
+                    height="120px"
+                    width="120px" />
+                </div>
+                <div class="uname">
+                  <img
+                    src="/vectoricons/user.png"
+                    id="uname"
+                    alt="uname"
+                    height="20px"
+                    width="20px" />
+                  <img
+                    src="/vectoricons/at.png"
+                    id="mail"
+                    alt="mail"
+                    height="20px"
+                    width="20px" />
+                  <p id="username"></p>
+                </div>
+                <div class="mail">
+                  <img
+                    src="/vectoricons/envelope.png"
+                    id="mail"
+                    alt="mail"
+                    height="20px"
+                    width="20px" />
+                  <p id="email"></p>
+                </div>
+                <div class="logout">
+                  <a href="./login.html"
+                    ><button id="logoutbtn" class="hbtn">
+                      <img
+                        src="/vectoricons/logout.png"
+                        id="logout"
+                        alt="logout"
+                        height="20px"
+                        width="20px" />
+                      LOGOUT
+                    </button></a
+                  >
+                </div>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <div id="title">
+          <h1>INVENTORY MANAGEMENT SYSTEM</h1>
+        </div>
       </div>
       <div>
         <a href="./cart.html"><button id="cart" class="hbtn">Cart</button></a>
-        <a href="./transaction_history.html"><button id="cart" class="hbtn">Transaction History</button></a>
-        <a href="./login.html"
-          ><button id="logout" class="hbtn">Logout</button></a
+        <a href="./transaction_history.html"
+          ><button id="cart" class="hbtn">Transaction History</button></a
         >
       </div>
     </div>
     <div id="searchbox">
-      <div>
+      <div id="search-box">
         <input type="text" id="search" placeholder="Search" />
         <button id="searchbtn" type="button">Search</button>
       </div>
@@ -55,13 +117,37 @@
     </div>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
+        var toggleSwitch = document.getElementById('scrollinput');
         const searchBtn = document.getElementById('searchbtn');
         const categoryDropdown = document.getElementById('category');
         const searchInput = document.getElementById('search');
         const tableContainer = document.getElementById('table-container');
 
+        var labelWidth = 20;
+
+        toggleSwitch.addEventListener('change', function () {
+          if (toggleSwitch.checked) {
+            mainContent.style.marginLeft = labelWidth + '%';
+          } else {
+            mainContent.style.marginLeft = '0';
+          }
+        });
         let checkboxCounter = 1;
 
+        const fetchAllProducts = async () => {
+          try{
+            const response = await fetch('http://localhost:5500/allProducts');
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log('data from server:', data);
+            displayTable(data);
+          }catch (error) {
+            console.error('Error:', error);
+          }
+        };
+        fetchAllProducts();
         // Function to generate a unique ID for each checkbox
         const generateCheckboxId = () => {
           return `terms-checkbox-${checkboxCounter++}`;
@@ -76,7 +162,6 @@
             console.error('Table container not found.');
             return;
           }
-          alert(data);
           // Clear existing table
           tableContainer.innerHTML = '';
 
@@ -242,7 +327,11 @@
             alert('Please select at least one item to add to the cart.');
           }
         });
+
+        
       });
+
+     
     </script>
   </body>
 </html>

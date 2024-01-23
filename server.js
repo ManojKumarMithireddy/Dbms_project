@@ -100,6 +100,22 @@ app.post('/search', async (req, res) => {
   }
 });
 
+app.get('/allProducts', async (req, res) => {
+  try{
+    const result = await pool.query(
+      'SELECT * FROM product'
+    );
+    res.json(result.rows);
+  }catch (error) {
+    console.error('Error executing database query:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message,
+    });
+  }
+});
+
 app.post('/filterByCategory', async (req, res) => {
   const { selectedCategory } = req.body;
   const { searchValue } = req.body;
@@ -166,6 +182,8 @@ app.post('/addToCart', async (req, res) => {
     });
   }
 });
+
+
 
 app.get('/productsInCart', async (req, res) => {
   try {
