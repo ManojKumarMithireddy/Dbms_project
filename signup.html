@@ -13,7 +13,6 @@
       body {
         font-family: 'Salsa', sans-serif;
         margin: 0;
-        font-size: 50px;
         background-image: url('images/login.jpg');
         background-size: cover; /* Adjust as needed */
         background-position: center; /* Adjust as needed */
@@ -29,6 +28,8 @@
       }
 
       #leftbox {
+        font-size: 50px;
+
         width: 50%;
         padding: 20px;
         border-radius: 10px;
@@ -221,7 +222,7 @@
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password, password1, eamil, role }),
+                body: JSON.stringify({ username, password, password1, role, email}),
               });
               const data = await response.json();
               alert('signup successful');

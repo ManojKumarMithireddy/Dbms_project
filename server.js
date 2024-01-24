@@ -171,8 +171,8 @@ app.post('/signup', async (req, res) => {
   }
   try {
     const result = await pool.query(
-      'INSERT INTO user1 (username, password, role, email) VALUES ($1, $2, $3) returning *',
-      [username, password, role, email]
+      'INSERT INTO user1 ( username, password, email , role) VALUES ($1, $2, $3, $4) returning *',
+      [username, password, email, role]
     );
     res.json({ success: true, message: 'Signup successful' });
   } catch (error) {
