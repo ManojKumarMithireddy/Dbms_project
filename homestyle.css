@@ -19,7 +19,7 @@ body {
   color: #fff;
 }
 
-#title{
+#title {
   padding-left: 30px;
   padding-top: 15px;
 }
@@ -81,8 +81,9 @@ body {
   cursor: pointer;
 }
 
-#category {
-  width: 150px;
+.category {
+  font-size: 20px;
+  width: 250px;
   height: 35px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -117,7 +118,8 @@ body {
   font-size: 20px;
 }
 
-#usernamecontainer, #emailcontainer {
+#usernamecontainer,
+#emailcontainer {
   font-size: 20px;
 }
 #addtocartbtn1 {
@@ -137,7 +139,14 @@ body {
   justify-content: right;
   padding-right: 35px;
   margin-top: 10px;
+  padding: 15px;
 }
+
+#supplierscontainer {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .checkbox-wrapper {
   margin-top: 20px;
   display: flex;
@@ -170,10 +179,9 @@ div {
   visibility: hidden;
   -webkit-appearance: none;
   appearance: none;
-  
 }
 
-#search-box{
+#search-box {
   padding: 30px;
 }
 
@@ -262,7 +270,8 @@ input:checked ~ .slide {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.uname, .mail{
+.uname,
+.mail {
   display: flex;
   justify-content: center;
   margin-top: 8%;

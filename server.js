@@ -60,20 +60,34 @@ app.post('/setUserID', async (req, res) => {
   }
 });
 
+app.get('/fetchSuppliers', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM supplier');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing database query:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
 app.post('/users', async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const client = await pool.connect();
     const result = await client.query(
-      'SELECT * FROM user1 WHERE email = $1 AND password = $2',
+      'SELECT role FROM user1 WHERE email = $1 AND password = $2',
       [email, password]
     );
 
     client.release();
 
     if (result.rows.length > 0) {
-      res.json({ success: true, message: 'Login successful' });
+      res.json({
+        success: true,
+        message: 'Login successful',
+        role: result.rows[0].role,
+      });
     } else {
       res.json({ success: false, message: 'Invalid credentials' });
     }
@@ -101,12 +115,10 @@ app.post('/search', async (req, res) => {
 });
 
 app.get('/allProducts', async (req, res) => {
-  try{
-    const result = await pool.query(
-      'SELECT * FROM product'
-    );
+  try {
+    const result = await pool.query('SELECT * FROM product');
     res.json(result.rows);
-  }catch (error) {
+  } catch (error) {
     console.error('Error executing database query:', error);
     res.status(500).json({
       success: false,
@@ -117,13 +129,13 @@ app.get('/allProducts', async (req, res) => {
 });
 
 app.get('/userDetails', async (req, res) => {
-  try{
+  try {
     const result = await pool.query(
       'SELECT username,email FROM user1 WHERE userid=$1',
       [getUserID()]
     );
     res.json(result.rows);
-  }catch (error) {
+  } catch (error) {
     console.error('Error executing database query:', error);
     res.status(500).json({
       success: false,
@@ -199,8 +211,6 @@ app.post('/addToCart', async (req, res) => {
     });
   }
 });
-
-
 
 app.get('/productsInCart', async (req, res) => {
   try {
@@ -292,6 +302,57 @@ app.get('/transactHistory', async (req, res) => {
     });
   }
 });
+
+app.get('/supplierDetails', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM supplier');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing database query:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message,
+    });
+  }
+});
+
+app.post('/addToOrder', async (req, res) => {
+  const { selectedSupplier, totalPrice } = req.body;
+  try {
+    const result = await pool.query(
+      'INSERT INTO order1 (date, supplierid, totalamount, userid) VALUES (CURRENT_TIMESTAMP, $1, $2, $3) returning *',
+      [selectedSupplier, totalPrice, getUserID()]
+    );
+    res.json({ success: true, message: 'Order placed successfully' });
+  } catch (error) {
+    console.error('Error executing database query:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message,
+    });
+  }
+});
+
+app.get('/ordersHistory', async (req, res) => {
+ // Corrected the typo here
+  try {
+    const result = await pool.query(
+      'select s.name, o.date, o.totalamount from supplier s, order1 o where o.supplierid=s.supplierid and o.userid=$1',
+      [getUserID()]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing database query:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message,
+    });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

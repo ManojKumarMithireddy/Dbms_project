@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-
     try {
       const response = await fetch('http://localhost:5500/users', {
         method: 'POST',
@@ -19,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
       const data = await response.json();
+      
 
       if (data.success) {
         const response1 = await fetch('http://localhost:5500/setUserID', {
@@ -31,7 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify({ email, password }),
         });
         alert(data.message);
-        window.location.href = './home.html';
+        if (data.role === 'Admin') {
+          window.location.href = './adminhome.html';
+        } else {
+          window.location.href = './home.html';
+        }
       } else {
         alert('Login failed');
       }

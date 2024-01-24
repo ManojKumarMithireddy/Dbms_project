@@ -80,9 +80,8 @@
         </div>
       </div>
       <div>
-        <a href="./cart.html"><button id="cart" class="hbtn">Cart</button></a>
-        <a href="./transaction_history.html"
-          ><button id="cart" class="hbtn">Transaction History</button></a
+        <a href="./ordered.html"
+          ><button id="cart" class="hbtn">ordered products</button></a
         >
       </div>
     </div>
@@ -114,7 +113,8 @@
       <div id="table-container"></div>
       <!-- Table will be displayed here -->
       <div id="addtocartdiv">
-        <button id="addtocartbtn1" type="button">Add to Cart</button>
+        <div id="supplierscontainer"></div>
+        <button id="addtocartbtn1" type="button">place order</button>
       </div>
     </div>
 
@@ -160,11 +160,10 @@
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const Data = await response.json();
-            const { username, email } = Data[0]; 
+            const { username, email } = Data[0];
 
             console.log('data from server:', Data);
-            document.getElementById('usernamecontainer').innerHTML =
-              username;
+            document.getElementById('usernamecontainer').innerHTML = username;
             document.getElementById('emailcontainer').innerHTML = email;
           } catch (error) {
             console.error('Error:', error);
@@ -172,6 +171,34 @@
         };
         fetchUserDetails();
         // Function to generate a unique ID for each checkbox
+
+        const fetchSuppliers = async () => {
+          try {
+            const response = await fetch(
+              'http://localhost:5500/fetchSuppliers'
+            );
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log('data from server:', data);
+            const suppliersContainer =
+              document.getElementById('supplierscontainer');
+            suppliersContainer.innerHTML = '';
+            suppliersContainer.innerHTML = `<select name="suppliers" id="suppliers" class="category">
+            <option value="">select supplier</option>
+            ${data.map(
+              (supplier) =>
+                `<option value="${supplier.supplierid}">${supplier.name}</option>`
+            )}
+        </select>`;
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        };
+
+        fetchSuppliers();
+
         const generateCheckboxId = () => {
           return `terms-checkbox-${checkboxCounter++}`;
         };
@@ -226,8 +253,8 @@
             checkboxInput.setAttribute('name', 'checkbox');
             checkboxInput.setAttribute('type', 'checkbox');
             checkboxInput.classList.add('terms-checkbox');
-            const firstKey = Object.keys(item)[0];
-            checkboxInput.value = item[firstKey];
+            const fourthKey = Object.keys(item)[3];
+            checkboxInput.value = item[fourthKey];
             console.log(checkboxInput.value);
             // Add this line inside the loop where checkboxes are created
             checkboxInput.style.transform = 'scale(2.5)';
@@ -322,18 +349,24 @@
 
           if (addToCartCheckboxes.length > 0) {
             // Extract the product IDs of the checked items
-            const productIds = Array.from(addToCartCheckboxes).map(
-              (checkbox) => checkbox.value
+            var totalPrice = 0;
+            totalPrice = Array.from(addToCartCheckboxes).reduce(
+              (total, checkbox) => total + parseInt(checkbox.value),
+              0
             );
+
+            const supplierDropdown = document.getElementById('suppliers');
+            const selectedSupplier = supplierDropdown.value;
+            
 
             try {
               // Send a request to the server to add product IDs to the cart
-              const response = await fetch('http://localhost:5500/addToCart', {
+              const response = await fetch('http://localhost:5500/addToOrder', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ productIds }),
+                body: JSON.stringify({ selectedSupplier, totalPrice }),
               });
 
               if (!response.ok) {
