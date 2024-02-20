@@ -5,7 +5,7 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Salsa&display=swap"
@@ -227,13 +227,20 @@
                   id="ccnum"
                   name="cardnumber"
                   placeholder="1111-2222-3333-4444"
-                  required />
+                  required
+                  maxlength="16"
+                  minlength="16"
+                  title="Please enter a valid credit card number in the format: 1111-2222-3333-4444"
+                  aria-describedby="ccnumformat" />
+                <div id="ccnumformat" class="sr-only"
+                  >Credit card number format: 1111-2222-3333-4444</div
+                >
                 <label for="expmonth">Exp Month</label>
                 <input
                   type="text"
                   id="expmonth"
                   name="expmonth"
-                  placeholder="September"
+                  placeholder="05"
                   required />
                 <div class="row">
                   <div class="col-50">
@@ -243,7 +250,9 @@
                       id="expyear"
                       name="expyear"
                       placeholder="2098"
-                      required />
+                      required
+                      min="1000"
+                      max="9999" />
                   </div>
                   <div class="col-50">
                     <label for="cvv">CVV</label>
@@ -252,7 +261,9 @@
                       id="cvv"
                       name="cvv"
                       placeholder="999"
-                      required />
+                      required
+                      min="1"
+                      max="999" />
                   </div>
                 </div>
               </div>
@@ -279,6 +290,7 @@
       </div>
     </div>
     <script>
+      
       document.addEventListener('DOMContentLoaded', () => {
         const cname = document.getElementById('fname');
         const email = document.getElementById('email');

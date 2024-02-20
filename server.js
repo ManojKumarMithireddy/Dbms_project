@@ -17,7 +17,6 @@ app.use(cors());
 app.use(express.json());
 
 var userID = 0;
-//fuction to set user id
 
 const setUserID = (id) => {
   userID = id;
@@ -312,7 +311,13 @@ app.get('/supplierDetails', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Internal server error',
-      error: error.message,
+      _error: error.message,
+      get error() {
+        return this._error;
+      },
+      set error(value) {
+        this._error = value;
+      },
     });
   }
 });
@@ -336,7 +341,7 @@ app.post('/addToOrder', async (req, res) => {
 });
 
 app.get('/ordersHistory', async (req, res) => {
- // Corrected the typo here
+  // Corrected the typo here
   try {
     const result = await pool.query(
       'select s.name, o.date, o.totalamount from supplier s, order1 o where o.supplierid=s.supplierid and o.userid=$1',
@@ -352,7 +357,6 @@ app.get('/ordersHistory', async (req, res) => {
     });
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

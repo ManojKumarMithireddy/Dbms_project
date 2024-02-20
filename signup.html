@@ -29,12 +29,8 @@
 
       #leftbox {
         font-size: 50px;
-
         width: 50%;
         padding: 20px;
-        border-radius: 10px;
-        margin-top: 50px;
-        margin-right: 100px;
         padding-top: 180px;
       }
 
@@ -90,7 +86,7 @@
       }
 
       label {
-        font-size: 28px;
+        font-size: 22px;
         margin-bottom: 5px;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -110,17 +106,17 @@
 
       #rightbox {
         width: 50%;
-        padding: 20px;
-        border-radius: 10px;
-
-        margin-left: 300px;
-        padding-top: 20px;
+        margin-left: 220px;
       }
 
       #signup-header {
         text-align: center;
         font-size: 35px;
         margin-bottom: 20px;
+      }
+
+      .signupdiv {
+        padding: 8px;
       }
     </style>
   </head>
@@ -145,58 +141,70 @@
         </div>
         <form id="signup-form">
           <div class="signupdiv">
-            <label for="username"><img
-              src="/vectoricons/user.png"
-              id="uname"
-              alt="uname"
-              height="20px"
-              width="20px" />
-              Username:</label>
+            <label for="username"
+              ><img
+                src="/vectoricons/user.png"
+                id="uname"
+                alt="uname"
+                height="20px"
+                width="20px" />
+              Username:</label
+            >
             <input required="" name="username" id="username" type="text" />
           </div>
           <div class="signupdiv">
-            <label for="password"><img
-              src="/vectoricons/padlock.png"
-              id="uname"
-              alt="padlock"
-              height="20px"
-              width="20px" />
-              Password:</label>
+            <label for="password"
+              ><img
+                src="/vectoricons/padlock.png"
+                id="uname"
+                alt="padlock"
+                height="20px"
+                width="20px" />
+              Password:</label
+            >
             <input required="" name="password" id="password" type="password" />
           </div>
           <div class="signupdiv">
-            <label for="password1"><img
-              src="/vectoricons/padlock.png"
-              id="uname"
-              alt="padlock"
-              height="20px"
-              width="20px" />
-              Confirm Password:</label>
+            <label for="password1"
+              ><img
+                src="/vectoricons/padlock.png"
+                id="uname"
+                alt="padlock"
+                height="20px"
+                width="20px" />
+              Confirm Password:</label
+            >
             <input required="" name="password" id="password1" type="password" />
           </div>
           <div class="signupdiv">
-            <label for="email"><img
-              src="/vectoricons/envelope.png"
-              id="mail"
-              alt="mail"
-              height="20px"
-              width="20px" />
-              enter email:</label>
+            <label for="email"
+              ><img
+                src="/vectoricons/envelope.png"
+                id="mail"
+                alt="mail"
+                height="20px"
+                width="20px" />
+              enter email:</label
+            >
             <input required="" name="eamil" id="email" type="email" />
           </div>
           <div class="signupdiv">
-            <label for="role"><img
-              src="/vectoricons/settings.png"
-              id="mail"
-              alt="role"
-              height="20px"
-              width="20px" />
-              Role:</label>
+            <label for="role"
+              ><img
+                src="/vectoricons/settings.png"
+                id="mail"
+                alt="role"
+                height="20px"
+                width="20px" />
+              Role:</label
+            >
             <select name="role" id="role">
               <option value="Customer">Customer</option>
               <option value="Admin">Admin</option>
             </select>
           </div>
+          <p>Already have an account?<a href="./login.html">Sign in</a></p>
+
           <div class="signupdiv">
             <input value="Sign Up" type="submit" />
           </div>
@@ -222,7 +230,13 @@
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password, password1, role, email}),
+                body: JSON.stringify({
+                  username,
+                  password,
+                  password1,
+                  role,
+                  email,
+                }),
               });
               const data = await response.json();
               alert('signup successful');
@@ -235,5 +249,5 @@
         });
       </script>
     </div>
-    </body>
-    </html>
+  </body>
+</html>

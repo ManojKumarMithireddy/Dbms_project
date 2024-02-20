@@ -74,16 +74,13 @@
             </div>
           </label>
         </div>
-
         <div id="title">
           <h1>INVENTORY MANAGEMENT SYSTEM</h1>
         </div>
       </div>
       <div>
         <a href="./cart.html"><button id="cart" class="hbtn">Cart</button></a>
-        <a href="./transaction_history.html"
-          ><button id="cart" class="hbtn">Transaction History</button></a
-        >
+        <a href="./transaction_history.html"><button id="cart" class="hbtn">Transaction History</button></a>
       </div>
     </div>
     <div class="dashboard">
@@ -93,7 +90,6 @@
           <button id="searchbtn" type="button">Search</button>
         </div>
         <div class="dropdown">
-          <!-- dropdown menu having categories retrieved from database -->
           <select name="category" id="category" class="category">
             <option value="all">All</option>
             <option value="Electronics">Electronics</option>
@@ -102,9 +98,7 @@
             <option value="Books">Books</option>
             <option value="Toys and Games">Toys and Games</option>
             <option value="Sports and Outdoors">Sports and Outdoors</option>
-            <option value="Beauty and Personal Care"
-              >Beauty and Personal Care</option
-            >
+            <option value="Beauty and Personal Care">Beauty and Personal Care</option>
             <option value="Furniture">Furniture</option>
             <option value="Food and Beverages">Food and Beverages</option>
             <option value="Health and Wellness">Health and Wellness</option>
@@ -112,12 +106,10 @@
         </div>
       </div>
       <div id="table-container"></div>
-      <!-- Table will be displayed here -->
       <div id="addtocartdiv">
         <button id="addtocartbtn1" type="button">Add to Cart</button>
       </div>
     </div>
-
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         var toggleSwitch = document.getElementById('scrollinput');
@@ -137,7 +129,6 @@
           }
         });
         let checkboxCounter = 1;
-
         const fetchAllProducts = async () => {
           try {
             const response = await fetch('http://localhost:5500/allProducts');
@@ -152,7 +143,6 @@
           }
         };
         fetchAllProducts();
-
         const fetchUserDetails = async () => {
           try {
             const response = await fetch('http://localhost:5500/userDetails');
@@ -160,54 +150,39 @@
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const Data = await response.json();
-            const { username, email } = Data[0]; 
-
+            const { username, email } = Data[0];
             console.log('data from server:', Data);
-            document.getElementById('usernamecontainer').innerHTML =
-              username;
+            document.getElementById('usernamecontainer').innerHTML = username;
             document.getElementById('emailcontainer').innerHTML = email;
           } catch (error) {
             console.error('Error:', error);
           }
         };
         fetchUserDetails();
-        // Function to generate a unique ID for each checkbox
         const generateCheckboxId = () => {
           return `terms-checkbox-${checkboxCounter++}`;
         };
-        // Function to generate and display a table with the given data
         const displayTable = (data) => {
-          // Find the table container
           const tableContainer = document.getElementById('table-container');
-
-          // Check if the table container exists
           if (!tableContainer) {
             console.error('Table container not found.');
             return;
           }
-          // Clear existing table
           tableContainer.innerHTML = '';
-
-          // Create table element
           const table = document.createElement('table');
           table.setAttribute('border', '2');
           table.setAttribute('color', 'black');
           table.classList.add('table');
-          // Create table header
           const headerRow = document.createElement('tr');
           for (const key in data[0]) {
             const th = document.createElement('th');
             th.textContent = key.toUpperCase();
             headerRow.appendChild(th);
           }
-
-          // Add heading for the "Add to Cart" column
           const addToCartHeader = document.createElement('th');
           addToCartHeader.textContent = 'Add to Cart';
           headerRow.appendChild(addToCartHeader);
           table.appendChild(headerRow);
-
-          // Create table rows
           data.forEach((item) => {
             const row = document.createElement('tr');
             for (const key in item) {
@@ -215,11 +190,8 @@
               td.textContent = item[key];
               row.appendChild(td);
             }
-
-            // Add checkbox to each row
             const checkboxWrapper = document.createElement('div');
             checkboxWrapper.classList.add('checkbox-wrapper');
-
             const checkid = generateCheckboxId();
             const checkboxInput = document.createElement('input');
             checkboxInput.setAttribute('id', checkid); // Assuming 'id' is a property in your data
@@ -229,33 +201,21 @@
             const firstKey = Object.keys(item)[0];
             checkboxInput.value = item[firstKey];
             console.log(checkboxInput.value);
-            // Add this line inside the loop where checkboxes are created
             checkboxInput.style.transform = 'scale(2.5)';
-
             const checkboxLabel = document.createElement('label');
             checkboxLabel.classList.add('terms-label');
             checkboxLabel.setAttribute('for', checkid);
-
-            // ... (SVG and label content)
-
             checkboxWrapper.appendChild(checkboxInput);
             checkboxWrapper.appendChild(checkboxLabel);
-
             const tdCheckbox = document.createElement('td');
             tdCheckbox.appendChild(checkboxWrapper);
             row.appendChild(tdCheckbox);
             table.appendChild(row);
           });
-
-          // Append table to the container
           tableContainer.appendChild(table);
         };
-
-        // Event listener for the search button
         searchBtn.addEventListener('click', async () => {
           const searchValue = searchInput.value;
-          // const selectedCategory = categoryDropdown.value;
-
           try {
             const response = await fetch('http://localhost:5500/search', {
               method: 'POST',
@@ -264,31 +224,22 @@
               },
               body: JSON.stringify({ searchValue }),
             });
-
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
             const data = await response.json();
             console.log('data');
             displayTable(data);
-
-            // Process and display the search result as needed
           } catch (error) {
             console.error('Error:', error);
-            // Handle errors, e.g., display an error message to the user
           }
         });
-
-        // Event listener for the category dropdown
         categoryDropdown.addEventListener('change', async () => {
           const selectedCategory = categoryDropdown.value;
           const searchValue = searchInput.value;
-
           try {
             alert(selectedCategory);
-            const response = await fetch(
-              'http://localhost:5500/filterByCategory',
+            const response = await fetch('http://localhost:5500/filterByCategory',
               {
                 method: 'POST',
                 headers: {
@@ -297,37 +248,26 @@
                 body: JSON.stringify({ selectedCategory, searchValue }),
               }
             );
-
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json();
             console.log('data from server:', data);
             displayTable(data);
-            // Process and display the filtered result as needed
           } catch (error) {
             console.error('Error:', error);
-            // Handle errors, e.g., display an error message to the user
           }
         });
-
-        //event listener for the add to cart button
-
-        // Event listener for the add to cart button
         const addtocartbtn1 = document.getElementById('addtocartbtn1');
         addtocartbtn1.addEventListener('click', async () => {
           const addToCartCheckboxes = document.querySelectorAll(
             '.terms-checkbox:checked'
           );
-
           if (addToCartCheckboxes.length > 0) {
-            // Extract the product IDs of the checked items
             const productIds = Array.from(addToCartCheckboxes).map(
               (checkbox) => checkbox.value
             );
-
             try {
-              // Send a request to the server to add product IDs to the cart
               const response = await fetch('http://localhost:5500/addToCart', {
                 method: 'POST',
                 headers: {
@@ -335,16 +275,13 @@
                 },
                 body: JSON.stringify({ productIds }),
               });
-
               if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
               }
-
               const result = await response.json();
               alert(result.message);
             } catch (error) {
               console.error('Error:', error);
-              // Handle errors, e.g., display an error message to the user
             }
           } else {
             alert('Please select at least one item to add to the cart.');
