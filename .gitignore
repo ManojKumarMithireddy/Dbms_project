@@ -1,5 +1,4 @@
-__pycache__
+echo "__pycache__
 node_modules
 .stylelintrc.json
-package-lock.json
-package.json
+" > .gitignore
