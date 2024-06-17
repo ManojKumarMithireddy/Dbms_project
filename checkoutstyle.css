@@ -1,5 +1,5 @@
 body {
-  font-family: 'Salsa', sans-serif;
+  font-family: Salsa, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
@@ -7,11 +7,10 @@ body {
 }
 
 .container {
-  max-width: 80%;
   margin: 50px auto;
   background-color: #fff;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgb(0 0 0 / 10%);
   transition: box-shadow 0.3s ease-in-out;
   max-width: 600px;
   margin-top: 200px;
@@ -65,10 +64,10 @@ label:hover {
 }
 
 .container:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px rgb(0 0 0 / 20%);
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (width <= 600px) {
   .container {
     max-width: 100%;
   }

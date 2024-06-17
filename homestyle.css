@@ -3,7 +3,7 @@ body {
   background-image: url('./images/home.jpg');
   border-image: fill 0 linear-gradient(#000, #0001);
   background-repeat: no-repeat;
-  font-family: 'Salsa', sans-serif;
+  font-family: Salsa, sans-serif;
   background-size: cover; /* Adjust as needed */
   background-position: center; /* Adjust as needed */
   height: 100vh;
@@ -23,7 +23,8 @@ body {
   padding-left: 30px;
   padding-top: 15px;
 }
-@media screen and (max-width: 768px) {
+
+@media screen and (width <= 768px) {
   #searchbox {
     flex-direction: column;
   }
@@ -50,7 +51,7 @@ body {
 
 
 
-@media screen and (max-width: 768px) {
+@media screen and (width <= 768px) {
   .table {
     display: block;
     overflow-x: auto;
@@ -110,6 +111,7 @@ body {
 #dropdown {
   padding-right: 100px;
 }
+
 #table-container td {
   padding: 10px;
   border: 1px solid #ccc;
@@ -122,6 +124,7 @@ body {
 #emailcontainer {
   font-size: 20px;
 }
+
 #addtocartbtn1 {
   background-color: #28a745;
   color: #fff;
@@ -161,7 +164,6 @@ body {
 
 div {
   padding-left: 10px;
-  padding-left: 10px;
 }
 
 .slide {
@@ -172,13 +174,14 @@ div {
   background-color: #fff;
   transition: 0.5s ease;
   transform: translateX(-110%);
+
   /* overflow-x: hidden; */
 }
 
 #scrollinput {
   display: none;
   visibility: hidden;
-  -webkit-appearance: none;
+  appearance: none;
   appearance: none;
 }
 
@@ -197,7 +200,7 @@ div {
   cursor: pointer;
   border-radius: 2px;
   background-color: #6feded;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgb(0 0 0 / 30%);
 }
 
 .toggle .common {
@@ -235,7 +238,7 @@ div {
 .slide h1 {
   text-transform: uppercase;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   font-weight: bold;
   font-size: 30px;
   padding: 30px;
@@ -268,7 +271,7 @@ input:checked ~ .toggle {
 
 input:checked ~ .slide {
   transform: translateX(0);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgb(0 0 0 / 20%);
 }
 
 .uname,

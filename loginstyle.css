@@ -1,5 +1,5 @@
 body {
-  font-family: 'Salsa', sans-serif;
+  font-family: Salsa, sans-serif;
   margin: 0;
   font-size: 50px;
   background-image: url('images/login.jpg');
@@ -15,7 +15,7 @@ body {
 #leftbox {
   width: 50%;
   border-radius: 10px;
-  margin-top: 0px;
+  margin-top: 0;
   padding-top: 40px;
 }
 
@@ -49,10 +49,12 @@ span{
 #mail, #password{
   align-self: center;
 }
+
 p {
   font-size: 15px;
   margin-top: 15px;
 }
+
 .login-card {
   display: flex;
   justify-content: space-between;
@@ -88,7 +90,7 @@ input[type='password'] {
   font-size: 16px;
   border: 1px solid #ccc;
   background-color: #53b07d80;
-  color: rgb(7, 7, 7);
+  color: rgb(7 7 7);
   border-radius: 4px;
   box-sizing: border-box;
   transition: 0.5s;
@@ -97,7 +99,7 @@ input[type='password'] {
 input[type='submit'] {
   width: 100%;
   background-color: #4f9f73b7;
-  color: rgb(201, 177, 177);
+  color: rgb(201 177 177);
   padding: 14px 20px;
   margin-top: 5px;
   border: none;
@@ -106,7 +108,7 @@ input[type='submit'] {
 }
 
 input[type='submit']:hover {
-  background-color: #ffffff;
+  background-color: #fff;
   color: #000000b7;
   border: 1px solid #000;
 }

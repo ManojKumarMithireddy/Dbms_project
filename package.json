@@ -16,5 +16,9 @@
     "mysql": "^2.18.1",
     "pg": "^8.11.3"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "stylelint": "^16.6.1",
+    "stylelint-config-standard": "^36.0.0"
+  }
 }
