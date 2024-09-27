@@ -44,14 +44,20 @@ app.get('/totalPriceInCart', async (req, res) => {
   }
 });
 
+// Endpoint to set the user ID based on email and password
 app.post('/setUserID', async (req, res) => {
   const { email, password } = req.body;
   try {
+    // Query to fetch the user ID based on provided email and password
     const result = await pool.query(
       'SELECT distinct userid FROM user1 WHERE email = $1 AND password = $2',
       [email, password]
     );
+    
+    // Set the user ID using the setUserID function
     setUserID(result.rows[0].userid);
+    
+    // Respond with the fetched user ID
     res.json(result.rows);
   } catch (error) {
     console.error('Error executing database query:', error);
